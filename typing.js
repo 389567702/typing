@@ -17,11 +17,19 @@
 
     function createCusor(element){
       var cursor = document.createElement('span');
+      var fontSize = document.defaultView.getComputedStyle(element, null).fontSize;
+      console.log(fontSize);
+      if(!fontSize){
+        fontSize = 18;
+      } else {
+        fontSize = fontSize * 1.5;
+      }
       cursor.id = "cursor";
       var head = document.getElementsByTagName('head')[0];
       var style = document.createElement('style');
       style.innerHTML = "#cursor{" +
-                        "font-size: 18px;" +
+                        "font-size: " +
+                        fontSize + "px;" +
                         "font-weight: lighter;" +
                         "opacity:1;" +
                         "-webkit-animation:a 1s infinite;" +

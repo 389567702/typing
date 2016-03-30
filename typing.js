@@ -1,15 +1,44 @@
 (function (exports) {
-    'use strict';
+    // 'use strict';
 
     var Typing = function (element, options) {
         // secure mode in case of forgetting to write 'new'
+        var el;
         if (!(this instanceof Typing)) {
             return new Typing(element, options);
         } else {
-            this.el = element;
+            el = document.createElement('span');
+            element.appendChild(el);
+            createCusor(element);
+            this.el = el;
             this.opts = options;
         }
     };
+
+    function createCusor(element){
+      var cursor = document.createElement('span');
+      cursor.id = "cursor";
+      var head = document.getElementsByTagName('head')[0];
+      var style = document.createElement('style');
+      style.innerHTML = "#cursor{" +
+                        "font-size: 18px;" +
+                        "font-weight: lighter;" +
+                        "opacity:1;" +
+                        "-webkit-animation:a 1s infinite;" +
+                        "animation:a 1s infinite;}" +
+                        "@keyframes a{" +
+                        "0%{opacity:1}" +
+                        "50%{opacity:0}" +
+                        "to{opacity:1}}" +
+                        "@-webkit-keyframes a{" +
+                        "0%{opacity:1}" +
+                        "50%{opacity:0}" +
+                        "to{opacity:1}" +
+                        "}";
+      head.appendChild(style);
+      cursor.textContent = "|";
+      element.appendChild(cursor);
+    }
 
 
     // construct queue for functions, context and arguments
